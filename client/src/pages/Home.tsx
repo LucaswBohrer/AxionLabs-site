@@ -3,15 +3,15 @@ import { ArrowRight, Zap, Brain, Heart, Code, Shield, Rocket, ChevronRight } fro
 import { useState, useEffect } from "react";
 
 /**
- * Axion Labs Corporate Website - Home Page
+ * Site Corporativo Axion Labs - Página Inicial
  * 
- * Design Philosophy: Premium Laboratory
- * - Dark graphite background (#111111) with neon purple accents (#6C3BFF)
- * - Asymmetric layouts with strategic use of whitespace
- * - Premium typography using Sora (display) and Inter (body)
- * - Geometric accent shapes echoing the "A" logo
- * - Smooth animations and micro-interactions
- * - Investor-ready, professional appearance
+ * Filosofia de Design: Laboratório Premium
+ * - Fundo graphite escuro (#111111) com acentos purple neon (#6C3BFF)
+ * - Layouts assimétricos com uso estratégico de espaço em branco
+ * - Tipografia premium usando Sora (display) e Inter (body)
+ * - Formas geométricas ecoando o logo "A"
+ * - Animações suaves e micro-interações
+ * - Aparência profissional pronta para investidores
  */
 
 export default function Home() {
@@ -78,25 +78,24 @@ export default function Home() {
         <div className="container relative z-10 flex flex-col justify-center h-full max-w-6xl">
           <div className="max-w-2xl">
             <h1 className="font-display text-6xl md:text-7xl leading-tight mb-6 tracking-tight">
-              Technology That <span className="text-[#6C3BFF]">Understands</span> People.
+              Tecnologia que <span className="text-[#6C3BFF]">Compreende</span> Pessoas.
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed max-w-xl font-light">
-              Building the next generation of intelligent robotic companions through robotics, artificial intelligence,
-              and engineering excellence.
+              Construindo a próxima geração de companheiros robóticos inteligentes através de robótica, inteligência artificial e excelência em engenharia.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 className="btn-primary px-8 py-6 text-base rounded-lg font-medium"
                 onClick={() => document.getElementById("companion")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Discover Axion Companion
+                Conheça o Axion Companion
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 className="btn-secondary px-8 py-6 text-base rounded-lg font-medium"
                 onClick={() => document.getElementById("vision")?.scrollIntoView({ behavior: "smooth" })}
               >
-                Our Vision
+                Nossa Visão
               </Button>
             </div>
           </div>
@@ -111,48 +110,45 @@ export default function Home() {
               <div className="mb-12">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1 h-8 bg-[#6C3BFF]" />
-                  <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">OUR STORY</span>
+                  <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">NOSSA HISTÓRIA</span>
                 </div>
                 <h2 className="font-display text-5xl md:text-6xl leading-tight mb-8">
-                  Born from <span className="text-[#6C3BFF]">Technical</span> Expertise
+                  Nascida da <span className="text-[#6C3BFF]">Expertise</span> Técnica
                 </h2>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                Axion Labs emerged from decades of experience at Eletrônica Digital, a company that understood
-                technology from the inside. We transformed that technical expertise into innovative products designed
-                to improve everyday life through intelligent robotics and artificial intelligence.
+                A Axion Labs emergiu de décadas de experiência na Eletrônica Digital, uma empresa que entendia tecnologia desde suas raízes. Transformamos essa expertise técnica em produtos inovadores projetados para melhorar a vida cotidiana através de robótica inteligente e inteligência artificial.
               </p>
               <p className="text-gray-400 text-base leading-relaxed">
-                Today, we're building intelligent robotic companions that combine cutting-edge robotics, adaptive AI,
-                and human-centered design to create meaningful relationships between humans and technology.
+                Hoje, estamos construindo companheiros robóticos inteligentes que combinam robótica de ponta, IA adaptativa e design centrado no ser humano para criar relacionamentos significativos entre humanos e tecnologia.
               </p>
             </div>
             <div className="space-y-6">
               <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-6 rounded-lg hover:border-[#6C3BFF] transition-colors duration-300">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-1 h-4 bg-[#6C3BFF]" />
-                  <h3 className="font-display text-sm font-semibold text-[#6C3BFF] tracking-wide">MISSION</h3>
+                  <h3 className="font-display text-sm font-semibold text-[#6C3BFF] tracking-wide">MISSÃO</h3>
                 </div>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  Create intelligent companions that enhance human life through innovation and engineering excellence.
+                  Criar companheiros inteligentes que aprimorem a vida humana através de inovação e excelência em engenharia.
                 </p>
               </div>
               <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-6 rounded-lg hover:border-[#6C3BFF] transition-colors duration-300">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-1 h-4 bg-[#6C3BFF]" />
-                  <h3 className="font-display text-sm font-semibold text-[#6C3BFF] tracking-wide">VISION</h3>
+                  <h3 className="font-display text-sm font-semibold text-[#6C3BFF] tracking-wide">VISÃO</h3>
                 </div>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  A future where technology understands people, learns from them, and creates meaningful connections.
+                  Um futuro onde a tecnologia compreende as pessoas, aprende com elas e cria conexões significativas.
                 </p>
               </div>
               <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-6 rounded-lg hover:border-[#6C3BFF] transition-colors duration-300">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-1 h-4 bg-[#6C3BFF]" />
-                  <h3 className="font-display text-sm font-semibold text-[#6C3BFF] tracking-wide">VALUES</h3>
+                  <h3 className="font-display text-sm font-semibold text-[#6C3BFF] tracking-wide">VALORES</h3>
                 </div>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  Innovation, reliability, human-centered design, and engineering-driven excellence.
+                  Inovação, confiabilidade, design centrado no ser humano e excelência em engenharia.
                 </p>
               </div>
             </div>
@@ -166,10 +162,10 @@ export default function Home() {
           <div className="mb-20">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-1 h-8 bg-[#6C3BFF]" />
-              <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">TECHNOLOGY</span>
+              <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">TECNOLOGIA</span>
             </div>
             <h2 className="font-display text-5xl md:text-6xl leading-tight">
-              Three Pillars of <span className="text-[#6C3BFF]">Innovation</span>
+              Três Pilares da <span className="text-[#6C3BFF]">Inovação</span>
             </h2>
           </div>
 
@@ -181,13 +177,12 @@ export default function Home() {
                   <Zap className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl font-bold mb-2">Robotics</h3>
+                  <h3 className="font-display text-2xl font-bold mb-2">Robótica</h3>
                   <div className="w-8 h-1 bg-[#6C3BFF] rounded-full" />
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                Creating intelligent physical companions with advanced sensors, actuators, and mechanical design that
-                enable natural, intuitive interaction.
+                Criando companheiros físicos inteligentes com sensores avançados, atuadores e design mecânico que permitem interação natural e intuitiva.
               </p>
             </div>
 
@@ -198,13 +193,12 @@ export default function Home() {
                   <Brain className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl font-bold mb-2">Artificial Intelligence</h3>
+                  <h3 className="font-display text-2xl font-bold mb-2">Inteligência Artificial</h3>
                   <div className="w-8 h-1 bg-[#6C3BFF] rounded-full" />
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                Natural language processing, adaptive learning, and emotional understanding that enables meaningful
-                conversations and continuous growth.
+                Processamento de linguagem natural, aprendizado adaptativo e compreensão emocional que permitem conversas significativas e crescimento contínuo.
               </p>
             </div>
 
@@ -215,13 +209,12 @@ export default function Home() {
                   <Heart className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl font-bold mb-2">Human Connection</h3>
+                  <h3 className="font-display text-2xl font-bold mb-2">Conexão Humana</h3>
                   <div className="w-8 h-1 bg-[#6C3BFF] rounded-full" />
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                Technology designed to support people in everyday life, creating emotional bonds and meaningful
-                long-term relationships.
+                Tecnologia projetada para apoiar as pessoas na vida cotidiana, criando vínculos emocionais e relacionamentos significativos a longo prazo.
               </p>
             </div>
           </div>
@@ -236,24 +229,24 @@ export default function Home() {
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1 h-8 bg-[#6C3BFF]" />
-                  <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">FLAGSHIP PRODUCT</span>
+                  <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">PRODUTO PRINCIPAL</span>
                 </div>
                 <h2 className="font-display text-5xl md:text-6xl leading-tight">
                   Axion <span className="text-[#6C3BFF]">Companion</span>
                 </h2>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-10">
-                An intelligent robotic companion designed to learn, interact, assist, and grow alongside its owner.
+                Um companheiro robótico inteligente projetado para aprender, interagir, assistir e crescer ao lado de seu proprietário.
               </p>
 
               <div className="space-y-5 mb-10">
                 {[
-                  { title: "Voice Interaction", desc: "Natural language understanding and generation" },
-                  { title: "Emotional Expressions", desc: "Responsive and expressive interactions" },
-                  { title: "Learning Capabilities", desc: "Adaptive algorithms that improve over time" },
-                  { title: "Smart Reminders", desc: "Intelligent assistance for daily tasks" },
-                  { title: "Home Integration", desc: "Seamless connectivity with smart devices" },
-                  { title: "Educational Assistance", desc: "Support for learning and personal growth" },
+                  { title: "Interação por Voz", desc: "Compreensão e geração de linguagem natural" },
+                  { title: "Expressões Emocionais", desc: "Interações responsivas e expressivas" },
+                  { title: "Capacidades de Aprendizado", desc: "Algoritmos adaptativos que melhoram ao longo do tempo" },
+                  { title: "Lembretes Inteligentes", desc: "Assistência inteligente para tarefas diárias" },
+                  { title: "Integração Doméstica", desc: "Conectividade perfeita com dispositivos inteligentes" },
+                  { title: "Assistência Educacional", desc: "Suporte para aprendizado e crescimento pessoal" },
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-full bg-[#6C3BFF] flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -268,7 +261,7 @@ export default function Home() {
               </div>
 
               <Button className="btn-primary px-8 py-6 text-base rounded-lg font-medium">
-                Learn More About Companion
+                Saiba Mais Sobre o Companion
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
@@ -291,10 +284,10 @@ export default function Home() {
           <div className="mb-20">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-1 h-8 bg-[#6C3BFF]" />
-              <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">DIFFERENTIATION</span>
+              <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">DIFERENCIAL</span>
             </div>
             <h2 className="font-display text-5xl md:text-6xl leading-tight">
-              Why <span className="text-[#6C3BFF]">Axion Labs</span>
+              Por que <span className="text-[#6C3BFF]">Axion Labs</span>
             </h2>
           </div>
 
@@ -302,23 +295,23 @@ export default function Home() {
             {[
               {
                 icon: Code,
-                title: "Engineering-First Approach",
-                desc: "Built on decades of technical expertise. Every component is designed with precision and reliability.",
+                title: "Abordagem Centrada em Engenharia",
+                desc: "Construída sobre décadas de expertise técnica. Cada componente é projetado com precisão e confiabilidade.",
               },
               {
                 icon: Heart,
-                title: "Human-Centered Design",
-                desc: "Every feature is designed with the user in mind. Technology should enhance human life, not complicate it.",
+                title: "Design Centrado no Ser Humano",
+                desc: "Cada recurso é projetado com o usuário em mente. A tecnologia deve aprimorar a vida humana, não complicá-la.",
               },
               {
                 icon: Shield,
-                title: "Reliability & Trust",
-                desc: "Built to last. Our companions are designed for long-term relationships with their owners.",
+                title: "Confiabilidade e Confiança",
+                desc: "Construído para durar. Nossos companheiros são projetados para relacionamentos duradouros com seus proprietários.",
               },
               {
                 icon: Rocket,
-                title: "Innovation & Vision",
-                desc: "We're not just building products today. We're creating the foundation for the future.",
+                title: "Inovação e Visão",
+                desc: "Não estamos apenas construindo produtos hoje. Estamos criando a base para o futuro.",
               },
             ].map((item, idx) => (
               <div
@@ -343,21 +336,21 @@ export default function Home() {
               <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">ROADMAP</span>
             </div>
             <h2 className="font-display text-5xl md:text-6xl leading-tight">
-              Building an <span className="text-[#6C3BFF]">Ecosystem</span>
+              Construindo um <span className="text-[#6C3BFF]">Ecossistema</span>
             </h2>
             <p className="text-gray-400 text-lg mt-6 max-w-2xl">
-              Axion Labs is a long-term technology company building the future of human-robot interaction.
+              Axion Labs é uma empresa de tecnologia de longo prazo construindo o futuro da interação humano-robô.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "Home Robotics", desc: "Intelligent companions for everyday life" },
-              { title: "Educational Robotics", desc: "Learning and development through interaction" },
-              { title: "AI Assistants", desc: "Advanced conversational AI systems" },
-              { title: "Elder Care Technology", desc: "Compassionate support for aging populations" },
-              { title: "Smart Devices", desc: "Connected ecosystem of intelligent products" },
-              { title: "Future Categories", desc: "Expanding into new frontiers of technology" },
+              { title: "Robótica Doméstica", desc: "Companheiros inteligentes para a vida cotidiana" },
+              { title: "Robótica Educacional", desc: "Aprendizado e desenvolvimento através da interação" },
+              { title: "Assistentes de IA", desc: "Sistemas avançados de IA conversacional" },
+              { title: "Tecnologia para Idosos", desc: "Suporte compassivo para populações envelhecidas" },
+              { title: "Dispositivos Inteligentes", desc: "Ecossistema conectado de produtos inteligentes" },
+              { title: "Categorias Futuras", desc: "Expandindo para novas fronteiras da tecnologia" },
             ].map((category, idx) => (
               <div
                 key={idx}
@@ -378,17 +371,17 @@ export default function Home() {
       <section className="relative py-32 md:py-40 bg-[#0A0A0A]">
         <div className="container max-w-4xl">
           <div className="bg-[#1A1A1A] border border-[#6C3BFF] p-12 md:p-16 rounded-lg">
-            <h2 className="font-display text-4xl md:text-5xl mb-12 text-center">Our Manifesto</h2>
+            <h2 className="font-display text-4xl md:text-5xl mb-12 text-center">Nosso Manifesto</h2>
             <div className="space-y-8 text-lg md:text-xl leading-relaxed text-gray-300">
-              <p>We believe technology should do more than execute tasks.</p>
-              <p>It should <span className="text-[#6C3BFF] font-semibold">learn</span>.</p>
-              <p>It should <span className="text-[#6C3BFF] font-semibold">assist</span>.</p>
-              <p>It should <span className="text-[#6C3BFF] font-semibold">connect</span>.</p>
+              <p>Acreditamos que a tecnologia deve fazer mais do que executar tarefas.</p>
+              <p>Ela deve <span className="text-[#6C3BFF] font-semibold">aprender</span>.</p>
+              <p>Ela deve <span className="text-[#6C3BFF] font-semibold">assistir</span>.</p>
+              <p>Ela deve <span className="text-[#6C3BFF] font-semibold">conectar</span>.</p>
               <p className="pt-4">
-                While others build machines, we build <span className="text-[#6C3BFF] font-semibold">companions</span>.
+                Enquanto outros constroem máquinas, nós construímos <span className="text-[#6C3BFF] font-semibold">companheiros</span>.
               </p>
               <p className="pt-4 text-[#8B5FFF] font-semibold">
-                The future deserves technology that understands people.
+                O futuro merece uma tecnologia que compreenda as pessoas.
               </p>
             </div>
           </div>
@@ -401,14 +394,14 @@ export default function Home() {
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-1 h-8 bg-[#6C3BFF]" />
-              <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">GET IN TOUCH</span>
+              <span className="text-[#6C3BFF] text-sm font-semibold tracking-widest">ENTRE EM CONTATO</span>
               <div className="w-1 h-8 bg-[#6C3BFF]" />
             </div>
             <h2 className="font-display text-5xl md:text-6xl leading-tight mb-6">
-              Let's Build the <span className="text-[#6C3BFF]">Future</span> Together
+              Vamos Construir o <span className="text-[#6C3BFF]">Futuro</span> Juntos
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Interested in learning more about Axion Labs? We'd love to hear from you.
+              Interessado em saber mais sobre a Axion Labs? Adoraríamos ouvir você.
             </p>
           </div>
 
@@ -421,7 +414,7 @@ export default function Home() {
             </div>
 
             <div className="bg-[#1A1A1A] border border-[#2A2A2A] p-8 rounded-lg hover:border-[#6C3BFF] transition-colors duration-300">
-              <h3 className="font-display text-xl mb-4">Phone</h3>
+              <h3 className="font-display text-xl mb-4">Telefone</h3>
               <a href="tel:+5511999999999" className="text-[#6C3BFF] hover:text-[#8B5FFF] transition-colors">
                 +55 (11) 99999-9999
               </a>
@@ -456,11 +449,11 @@ export default function Home() {
         <div className="container max-w-6xl">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
-              <h4 className="font-display text-sm font-bold mb-4 text-[#6C3BFF] tracking-widest">COMPANY</h4>
+              <h4 className="font-display text-sm font-bold mb-4 text-[#6C3BFF] tracking-widest">EMPRESA</h4>
               <ul className="space-y-3 text-sm text-gray-400">
                 <li>
                   <a href="#about" className="hover:text-[#6C3BFF] transition-colors">
-                    About
+                    Sobre
                   </a>
                 </li>
                 <li>
@@ -470,13 +463,13 @@ export default function Home() {
                 </li>
                 <li>
                   <a href="#" className="hover:text-[#6C3BFF] transition-colors">
-                    Careers
+                    Carreiras
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-display text-sm font-bold mb-4 text-[#6C3BFF] tracking-widest">PRODUCTS</h4>
+              <h4 className="font-display text-sm font-bold mb-4 text-[#6C3BFF] tracking-widest">PRODUTOS</h4>
               <ul className="space-y-3 text-sm text-gray-400">
                 <li>
                   <a href="#companion" className="hover:text-[#6C3BFF] transition-colors">
@@ -485,7 +478,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a href="#" className="hover:text-[#6C3BFF] transition-colors">
-                    Documentation
+                    Documentação
                   </a>
                 </li>
               </ul>
@@ -495,18 +488,18 @@ export default function Home() {
               <ul className="space-y-3 text-sm text-gray-400">
                 <li>
                   <a href="#" className="hover:text-[#6C3BFF] transition-colors">
-                    Privacy
+                    Privacidade
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:text-[#6C3BFF] transition-colors">
-                    Terms
+                    Termos
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-display text-sm font-bold mb-4 text-[#6C3BFF] tracking-widest">FOLLOW</h4>
+              <h4 className="font-display text-sm font-bold mb-4 text-[#6C3BFF] tracking-widest">SIGA-NOS</h4>
               <ul className="space-y-3 text-sm text-gray-400">
                 <li>
                   <a href="#" className="hover:text-[#6C3BFF] transition-colors">
@@ -523,9 +516,9 @@ export default function Home() {
           </div>
 
           <div className="border-t border-[#2A2A2A] pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-500">© 2026 Axion Labs. All rights reserved.</p>
+            <p className="text-sm text-gray-500">© 2026 Axion Labs. Todos os direitos reservados.</p>
             <p className="text-sm text-gray-500 mt-4 md:mt-0">
-              Engineered with precision. Designed for humans.
+              Engenharia com precisão. Projetado para humanos.
             </p>
           </div>
         </div>
