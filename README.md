@@ -57,14 +57,20 @@ O **Axion Labs Website** é um site corporativo premium desenvolvido com foco em
 - Imagens otimizadas com lazy loading
 
 ### 🤖 Seções Principais
-1. **Hero Section** - Headline impactante com CTA principal
+1. **Hero Section** - Vídeo teaser do Axion Companion (10s) com headline impactante e CTA principal
 2. **Sobre** - Posicionamento e valores da empresa
 3. **O que Construímos** - Visão técnica e diferenciação
-4. **Axion Companion** - Showcase do produto com 4 renders profissionais
+4. **Axion Companion** - Showcase do produto com 4 renders profissionais e características
 5. **Roadmap** - 5 fases de desenvolvimento do produto
 6. **Proof of Reality** - Fotos da equipe, laboratório e protótipos
-7. **Lista de Espera** - Formulário integrado com Google Sheets
+7. **Lista de Espera** - Formulário integrado com Google Sheets + Email automático de boas-vindas
 8. **Contato** - Informações de contato e redes sociais
+
+### 🎬 Vídeo Teaser
+- **Axion Companion Teaser** - Vídeo de 10 segundos mostrando o robô em ação
+- Renderizado com VEO 3 (IA generativa de vídeo)
+- Hospedado em CDN para carregamento rápido
+- Reprodução automática em loop com fallback para imagem estática
 
 ### 📊 Integração com Google Sheets
 - Formulário captura: Nome, Email, País, WhatsApp
@@ -72,9 +78,16 @@ O **Axion Labs Website** é um site corporativo premium desenvolvido com foco em
 - Validação de campos e feedback visual
 - Fallback gracioso se integração não estiver disponível
 
+### 📧 Emails Automáticos (EmailJS)
+- **Email de Boas-vindas** - Enviado automaticamente ao se inscrever
+- Template HTML responsivo com design premium
+- Informações sobre roadmap e próximos passos
+- Integração com EmailJS para confiabilidade
+
 ### 🔐 Páginas Adicionais
 - **Termos de Serviço** - Política de uso do site
 - **Privacidade** - Política de proteção de dados
+- **Contato** - Formulário de contato e informações de suporte
 
 ---
 

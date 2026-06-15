@@ -209,7 +209,7 @@ export default function Home() {
           loop
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src="/axion-teaser.mp4" type="video/mp4" />
+          <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663723826567/bScHQvpdSTjzZowB.mp4" type="video/mp4" />
           {/* Fallback to background image if video doesn't load */}
           <div
             className="absolute inset-0 bg-cover bg-center"
