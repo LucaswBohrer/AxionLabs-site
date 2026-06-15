@@ -202,6 +202,17 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-8 md:pb-0">
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.7 }}
+        >
+          <source src="/manus-storage/axion-teaser_32015e67.mp4" type="video/mp4" />
+        </video>
+        
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
