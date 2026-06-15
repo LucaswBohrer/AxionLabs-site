@@ -1,6 +1,7 @@
 import { ArrowRight, Zap, Brain, Heart, Code, Shield, Rocket, ChevronRight, Menu, X, Mail, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
+import emailjs from "@emailjs/browser";
 
 
 /**
@@ -25,6 +26,11 @@ export default function Home() {
   const [waitlistPhone, setWaitlistPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("Ozc7CK4vlyayxDBeg");
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +57,7 @@ export default function Home() {
     }
   };
 
-  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitMessage("");
@@ -59,46 +65,48 @@ export default function Home() {
     try {
       const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL;
       
-      if (!googleSheetsUrl) {
-        // Fallback: mostrar mensagem de sucesso mesmo sem integração
-        setSubmitMessage("Obrigado! Você foi adicionado à nossa lista de espera.");
-        setWaitlistName("");
-        setWaitlistEmail("");
-        setWaitlistCountry("");
-        setWaitlistPhone("");
-        setTimeout(() => setSubmitMessage(""), 5000);
-        return;
+      // Enviar para Google Sheets
+      if (googleSheetsUrl) {
+        try {
+          await fetch(googleSheetsUrl, {
+            method: "POST",
+            body: JSON.stringify({
+              nome: waitlistName,
+              email: waitlistEmail,
+              pais: waitlistCountry,
+              whatsapp: waitlistPhone,
+            }),
+          });
+        } catch (sheetsError) {
+          console.error("Erro ao enviar para Google Sheets:", sheetsError);
+        }
       }
 
-      const response = await fetch(googleSheetsUrl, {
-        method: "POST",
-        body: JSON.stringify({
-          nome: waitlistName,
-          email: waitlistEmail,
-          pais: waitlistCountry,
-          whatsapp: waitlistPhone,
-        }),
-      });
-
-      if (response.ok) {
-        setSubmitMessage("Obrigado! Você foi adicionado à nossa lista de espera.");
-        setWaitlistName("");
-        setWaitlistEmail("");
-        setWaitlistCountry("");
-        setWaitlistPhone("");
-        setTimeout(() => setSubmitMessage(""), 5000);
-      } else {
-        setSubmitMessage("Erro ao enviar. Tente novamente.");
+      // Enviar email de boas-vindas via EmailJS
+      try {
+        await emailjs.send(
+          "service_i2qzyif",
+          "template_7zo6cjr",
+          {
+            user_name: waitlistName,
+            user_email: waitlistEmail,
+            to_email: waitlistEmail,
+          }
+        );
+      } catch (emailError) {
+        console.error("Erro ao enviar email:", emailError);
       }
-    } catch (error) {
-      console.error("Erro ao enviar para Google Sheets:", error);
-      // Mesmo com erro, mostrar mensagem de sucesso
-      setSubmitMessage("Obrigado! Você foi adicionado à nossa lista de espera.");
+
+      // Mostrar mensagem de sucesso
+      setSubmitMessage("Obrigado! Você foi adicionado à nossa lista de espera. Verifique seu email para mais informações.");
       setWaitlistName("");
       setWaitlistEmail("");
       setWaitlistCountry("");
       setWaitlistPhone("");
-      setTimeout(() => setSubmitMessage(""), 5000);
+      setTimeout(() => setSubmitMessage(""), 6000);
+    } catch (error) {
+      console.error("Erro ao processar inscrição:", error);
+      setSubmitMessage("Erro ao enviar. Tente novamente.");
     } finally {
       setIsSubmitting(false);
     }
