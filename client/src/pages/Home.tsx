@@ -779,23 +779,23 @@ export default function Home() {
 
             <div className="grid md:grid-cols-2 gap-6 md:gap-8">
               <a
-                href="mailto:contato@axionlabs.com"
+                href="mailto:axion.labs.technologies@gmail.com"
                 className="group p-6 md:p-8 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg hover:border-[#6C3BFF] transition-all duration-300 flex flex-col items-center"
               >
                 <Mail className="h-8 w-8 md:h-10 md:w-10 text-[#6C3BFF] mb-4 group-hover:scale-110 transition-transform" />
                 <h3 className="font-display text-lg md:text-xl font-bold mb-2">Email</h3>
-                <p className="text-gray-400 text-sm md:text-base">contato@axionlabs.com</p>
+                <p className="text-gray-400 text-sm md:text-base">axion.labs.technologies@gmail.com</p>
               </a>
 
               <a
-                href="https://wa.me/5511999999999"
+                href="https://wa.me/5551997505450?text=Olá.%20gostaria%20de%20mais%20informações%20sobre%20a%20Axion%20Labs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-6 md:p-8 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg hover:border-[#6C3BFF] transition-all duration-300 flex flex-col items-center"
               >
                 <MessageCircle className="h-8 w-8 md:h-10 md:w-10 text-[#6C3BFF] mb-4 group-hover:scale-110 transition-transform" />
                 <h3 className="font-display text-lg md:text-xl font-bold mb-2">WhatsApp</h3>
-                <p className="text-gray-400 text-sm md:text-base">+55 (11) 99999-9999</p>
+                <p className="text-gray-400 text-sm md:text-base">+55 (51) 99750-5450</p>
               </a>
             </div>
           </div>
@@ -859,12 +859,12 @@ export default function Home() {
               <h4 className="font-display font-bold mb-4">Contato</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>
-                  <a href="mailto:contato@axionlabs.com" className="hover:text-[#6C3BFF] transition-colors">
+                  <a href="mailto:axion.labs.technologies@gmail.com" className="hover:text-[#6C3BFF] transition-colors">
                     Email
                   </a>
                 </li>
                 <li>
-                  <a href="https://wa.me/5511999999999" className="hover:text-[#6C3BFF] transition-colors">
+                  <a href="https://wa.me/5551997505450?text=Olá.%20gostaria%20de%20mais%20informações%20sobre%20a%20Axion%20Labs" className="hover:text-[#6C3BFF] transition-colors">
                     WhatsApp
                   </a>
                 </li>
