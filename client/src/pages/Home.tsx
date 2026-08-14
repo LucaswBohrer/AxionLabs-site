@@ -759,14 +759,25 @@ export default function Home() {
               <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
                 O desenvolvimento é documentado com transparência porque cada avanço precisa ser testado no mundo real antes de se tornar parte do produto.
               </p>
-              <a
-                href="https://www.instagram.com/lucas_bohrer_/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#6C3BFF] text-[#D8CCFF] hover:bg-[#6C3BFF]/15 transition-colors font-semibold"
-              >
-                Acompanhe no Instagram <span aria-hidden="true">@lucas_bohrer_ ↗</span>
-              </a>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://www.instagram.com/lucas_bohrer_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#6C3BFF] text-[#D8CCFF] hover:bg-[#6C3BFF]/15 transition-colors font-semibold"
+                >
+                  Acompanhe no Instagram <span aria-hidden="true">@lucas_bohrer_ ↗</span>
+                </a>
+                <a
+                  href="https://github.com/LuquinhasBohrer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Conheça outros projetos de Lucas Bohrer no GitHub"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#3A3A3A] text-gray-200 hover:border-[#6C3BFF] hover:text-[#D8CCFF] transition-colors font-semibold"
+                >
+                  Outros projetos no GitHub <span aria-hidden="true">@LuquinhasBohrer ↗</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -895,6 +906,14 @@ export default function Home() {
                 <span className="font-display font-bold">AXION LABS</span>
               </div>
               <p className="text-gray-400 text-sm">Tecnologia que compreende pessoas.</p>
+              <a
+                href="https://github.com/LuquinhasBohrer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex mt-4 text-sm text-gray-300 hover:text-[#B69CFF] transition-colors"
+              >
+                GitHub · @LuquinhasBohrer <span className="ml-1" aria-hidden="true">↗</span>
+              </a>
             </div>
 
             <div>
