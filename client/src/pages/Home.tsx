@@ -44,6 +44,7 @@ export default function Home() {
     { label: "O que Construímos", href: "#what-we-build" },
     { label: "Axion Companion", href: "#companion" },
     { label: "Roadmap", href: "#roadmap" },
+    { label: "Fundador", href: "#creator" },
     { label: "Protótipo", href: "#building" },
     { label: "Contato", href: "#contact" },
   ];
@@ -140,7 +141,7 @@ export default function Home() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -732,7 +733,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Creator Section */}
+      {/* Creator and Founder Section */}
       <section id="creator" className="relative py-16 md:py-28 lg:py-32 bg-[#0A0A0A] border-y border-[#2A2A2A]">
         <div className="container max-w-6xl px-4 md:px-0">
           <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 md:gap-16 items-center">
@@ -740,7 +741,7 @@ export default function Home() {
               <div className="absolute -inset-3 rounded-2xl bg-[#6C3BFF]/20 blur-2xl" aria-hidden="true" />
               <img
                 src="/media/lucas-bohrer-criador.jpeg"
-                alt="Lucas Bohrer, criador do projeto Axion"
+                alt="Lucas Bohrer, criador e fundador do projeto Axion"
                 loading="lazy"
                 className="relative w-full aspect-[3/4] object-cover rounded-xl border border-[#6C3BFF]/40"
               />
@@ -748,13 +749,13 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-1 h-6 md:h-8 bg-[#6C3BFF]" />
-                <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">QUEM ESTÁ CONSTRUINDO</span>
+                <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">CRIADOR E FUNDADOR</span>
               </div>
               <h2 className="font-display text-3xl md:text-5xl leading-tight mb-5">
-                Por trás do <span className="text-[#6C3BFF]">Axion</span>.
+                Lucas Bohrer, <span className="text-[#6C3BFF]">criador e fundador</span>.
               </h2>
               <p className="text-gray-200 text-base md:text-lg leading-relaxed mb-5">
-                Eu sou Lucas Bohrer, criador do Axion. Estou construindo o projeto de ponta a ponta: do protótipo físico e seus testes de hardware à experiência, identidade e evolução do Companion.
+                Lucas Bohrer é o criador e fundador da Axion Labs. Ele conduz o desenvolvimento do projeto de ponta a ponta: do protótipo físico e dos testes de hardware à experiência, identidade e evolução do Axion Companion.
               </p>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
                 O desenvolvimento é documentado com transparência porque cada avanço precisa ser testado no mundo real antes de se tornar parte do produto.
@@ -766,7 +767,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#6C3BFF] text-[#D8CCFF] hover:bg-[#6C3BFF]/15 transition-colors font-semibold"
                 >
-                  Acompanhe no Instagram <span aria-hidden="true">@lucas_bohrer_ ↗</span>
+                  Acompanhar no Instagram <span aria-hidden="true">@lucas_bohrer_ ↗</span>
                 </a>
                 <a
                   href="https://github.com/LuquinhasBohrer"
