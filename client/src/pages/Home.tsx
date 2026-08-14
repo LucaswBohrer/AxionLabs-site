@@ -22,10 +22,9 @@ export default function Home() {
   const [, navigate] = useLocation();
   const [waitlistName, setWaitlistName] = useState("");
   const [waitlistEmail, setWaitlistEmail] = useState("");
-  const [waitlistCountry, setWaitlistCountry] = useState("");
-  const [waitlistPhone, setWaitlistPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+  const [submitState, setSubmitState] = useState<"success" | "error" | "">("");
 
   // Initialize EmailJS
   useEffect(() => {
@@ -45,7 +44,7 @@ export default function Home() {
     { label: "O que Construímos", href: "#what-we-build" },
     { label: "Axion Companion", href: "#companion" },
     { label: "Roadmap", href: "#roadmap" },
-    { label: "Visão", href: "#vision" },
+    { label: "Protótipo", href: "#building" },
     { label: "Contato", href: "#contact" },
   ];
 
@@ -57,56 +56,54 @@ export default function Home() {
     }
   };
 
-    const handleWaitlistSubmit = async (e: React.FormEvent) => {
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitMessage("");
+    setSubmitState("");
 
     try {
       const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL;
-      
-      // Enviar para Google Sheets
-      if (googleSheetsUrl) {
-        try {
-          await fetch(googleSheetsUrl, {
-            method: "POST",
-            body: JSON.stringify({
-              nome: waitlistName,
-              email: waitlistEmail,
-              pais: waitlistCountry,
-              whatsapp: waitlistPhone,
-            }),
-          });
-        } catch (sheetsError) {
-          console.error("Erro ao enviar para Google Sheets:", sheetsError);
+
+      if (!googleSheetsUrl) {
+        throw new Error("A origem de registro da lista de espera não está configurada.");
+      }
+
+      const sheetsResponse = await fetch(googleSheetsUrl, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          nome: waitlistName.trim(),
+          email: waitlistEmail.trim(),
+        }),
+      });
+
+      if (!sheetsResponse.ok) {
+        throw new Error(`Não foi possível registrar a inscrição (${sheetsResponse.status}).`);
+      }
+
+      const emailResponse = await emailjs.send(
+        "service_i2qzyif",
+        "template_7zo6cjr",
+        {
+          user_name: waitlistName.trim(),
+          user_email: waitlistEmail.trim(),
+          to_email: waitlistEmail.trim(),
         }
+      );
+
+      if (emailResponse.status < 200 || emailResponse.status >= 300) {
+        throw new Error("Não foi possível confirmar o e-mail de boas-vindas.");
       }
 
-      // Enviar email de boas-vindas via EmailJS
-      try {
-        await emailjs.send(
-          "service_i2qzyif",
-          "template_7zo6cjr",
-          {
-            user_name: waitlistName,
-            user_email: waitlistEmail,
-            to_email: waitlistEmail,
-          }
-        );
-      } catch (emailError) {
-        console.error("Erro ao enviar email:", emailError);
-      }
-
-      // Mostrar mensagem de sucesso
-      setSubmitMessage("Obrigado! Você foi adicionado à nossa lista de espera. Verifique seu email para mais informações.");
+      setSubmitState("success");
+      setSubmitMessage("Inscrição registrada. Enviaremos atualizações do protótipo para o seu e-mail.");
       setWaitlistName("");
       setWaitlistEmail("");
-      setWaitlistCountry("");
-      setWaitlistPhone("");
-      setTimeout(() => setSubmitMessage(""), 6000);
     } catch (error) {
       console.error("Erro ao processar inscrição:", error);
-      setSubmitMessage("Erro ao enviar. Tente novamente.");
+      setSubmitState("error");
+      setSubmitMessage("Não foi possível registrar sua inscrição agora. Tente novamente ou entre em contato pelo e-mail abaixo.");
     } finally {
       setIsSubmitting(false);
     }
@@ -229,24 +226,24 @@ export default function Home() {
         <div className="container relative z-10 flex flex-col justify-center h-full max-w-6xl px-4 md:px-0">
           <div className="max-w-2xl">
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-4 md:mb-6 tracking-tight">
-              Tecnologia que <span className="text-[#6C3BFF]">Compreende</span> Pessoas.
+              Um companheiro robótico <span className="text-[#6C3BFF]">em desenvolvimento</span>.
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 md:mb-8 leading-relaxed max-w-xl font-light">
-              Construindo a próxima geração de companheiros robóticos inteligentes através de robótica, inteligência artificial e excelência em engenharia.
+              O Axion Companion é um protótipo físico em evolução, criado para tornar a tecnologia mais presente, expressiva e humana. Acompanhe cada etapa de construção e validação.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <button
                 className="btn-primary px-6 md:px-8 py-5 md:py-6 text-sm md:text-base rounded-lg font-medium w-full sm:w-auto bg-[#6C3BFF] hover:bg-[#5A2FCC] transition-colors"
-                onClick={() => handleNavClick("#companion")}
+                onClick={() => handleNavClick("#building")}
               >
-                Conheça o Axion Companion
+                Ver o protótipo em desenvolvimento
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 inline" />
               </button>
               <button
                 className="btn-secondary px-6 md:px-8 py-5 md:py-6 text-sm md:text-base rounded-lg font-medium w-full sm:w-auto border border-[#6C3BFF] text-[#6C3BFF] hover:bg-[#6C3BFF]/10 transition-colors"
-                onClick={() => handleNavClick("#vision")}
+                onClick={() => handleNavClick("#roadmap")}
               >
-                Nossa Visão
+                Acompanhar os testes
               </button>
             </div>
           </div>
@@ -261,17 +258,17 @@ export default function Home() {
               <div className="mb-8 md:mb-12">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1 h-6 md:h-8 bg-[#6C3BFF]" />
-                  <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">NOSSA HISTÓRIA</span>
+                  <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">O PROJETO</span>
                 </div>
                 <h2 className="font-display text-3xl md:text-5xl lg:text-6xl leading-tight mb-6 md:mb-8">
-                  Nascida da <span className="text-[#6C3BFF]">Expertise</span> Técnica
+                  Construído na <span className="text-[#6C3BFF]">bancada</span>, passo a passo
                 </h2>
               </div>
               <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-4 md:mb-6">
-                A Axion Labs emergiu de décadas de experiência na Eletrônica Digital, uma empresa que entendia tecnologia desde suas raízes. Transformamos essa expertise técnica em produtos inovadores projetados para melhorar a vida cotidiana através de robótica inteligente e inteligência artificial.
+                A Axion Labs é o projeto independente de Lucas Bohrer para criar um companheiro robótico expressivo e útil. O desenvolvimento começa pelo que pode ser visto, ligado e testado no mundo real: hardware, display, olhos e estados de interação.
               </p>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                Hoje, estamos construindo companheiros robóticos inteligentes que combinam robótica de ponta, IA adaptativa e design centrado no ser humano para criar relacionamentos significativos entre humanos e tecnologia.
+                A visão é evoluir essa base física para percepção, áudio, comunicação, IA, voz, personalidade e memória — no ritmo em que cada camada puder ser validada com responsabilidade.
               </p>
             </div>
             <div className="space-y-4 md:space-y-6">
@@ -316,7 +313,7 @@ export default function Home() {
               <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">TECNOLOGIA</span>
             </div>
             <h2 className="font-display text-3xl md:text-5xl lg:text-6xl leading-tight">
-              Três Pilares da <span className="text-[#6C3BFF]">Inovação</span>
+              Bases do que estamos <span className="text-[#6C3BFF]">construindo</span>
             </h2>
           </div>
 
@@ -333,7 +330,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                Criando companheiros físicos inteligentes com sensores avançados, atuadores e design mecânico que permitem interação natural e intuitiva.
+                A base atual é o protótipo físico: ESP32, display e expressões visuais. Novos sensores e periféricos entram somente depois de testes isolados.
               </p>
             </div>
 
@@ -349,7 +346,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                Processamento de linguagem natural, aprendizado adaptativo e compreensão emocional que permitem conversas significativas e crescimento contínuo.
+                A camada de IA pertence às etapas futuras. Ela será conectada a uma arquitetura própria depois que a base de hardware, percepção e comunicação estiver validada.
               </p>
             </div>
 
@@ -365,7 +362,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                Tecnologia projetada para apoiar as pessoas na vida cotidiana, criando vínculos emocionais e relacionamentos significativos a longo prazo.
+                Expressão, presença e uma interação respeitosa orientam a experiência. O objetivo é que cada capacidade técnica tenha uma função humana clara.
               </p>
             </div>
           </div>
@@ -384,8 +381,9 @@ export default function Home() {
               Axion <span className="text-[#6C3BFF]">Companion</span>
             </h2>
             <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-2xl">
-              Um companheiro robótico inteligente de 10x10cm, projetado para aprender, interagir, assistir e crescer ao lado de seu proprietário.
+              Uma visão de produto para um companheiro robótico compacto. O protótipo está em desenvolvimento ativo; cada capacidade abaixo é apresentada com seu estágio atual para manter a evolução transparente.
             </p>
+            <p className="inline-flex mt-5 px-3 py-2 rounded-full bg-[#6C3BFF]/10 text-[#C8B7FF] text-xs font-semibold tracking-wide">Imagens conceituais de produto em evolução</p>
           </div>
 
           {/* Renders Grid */}
@@ -394,6 +392,7 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/axion-companion-frontal-WvdcSgZw2E3UmmUcYKzPnv.webp"
+                loading="lazy"
                 alt="Axion Companion - Vista Frontal"
                 className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
               />
@@ -408,6 +407,7 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/axion-companion-lateral-UVDL9ei52vNJS4fkcjPmKd.webp"
+                loading="lazy"
                 alt="Axion Companion - Vista Lateral"
                 className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
               />
@@ -422,6 +422,7 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/axion-companion-home-GvKtfFPFixXKQYkPLCg3Bu.webp"
+                loading="lazy"
                 alt="Axion Companion - Em Casa"
                 className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
               />
@@ -436,6 +437,7 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/axion-companion-interaction-6HjdnBAMMoF4k3DBXMESUV.webp"
+                loading="lazy"
                 alt="Axion Companion - Interação"
                 className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
               />
@@ -453,12 +455,12 @@ export default function Home() {
               <h3 className="font-display text-2xl md:text-3xl font-bold mb-8">Características Principais</h3>
               <div className="space-y-4 md:space-y-6">
                 {[
-                  { title: "Interação por Voz", desc: "Compreensão e geração de linguagem natural" },
-                  { title: "Expressões Emocionais", desc: "Interações responsivas e expressivas" },
-                  { title: "Capacidades de Aprendizado", desc: "Algoritmos adaptativos que melhoram ao longo do tempo" },
-                  { title: "Lembretes Inteligentes", desc: "Assistência inteligente para tarefas diárias" },
-                  { title: "Integração Doméstica", desc: "Conectividade perfeita com dispositivos inteligentes" },
-                  { title: "Assistência Educacional", desc: "Suporte para aprendizado e crescimento pessoal" },
+                  { title: "Olhos e estados visuais", desc: "Display ligado e expressões visuais registradas no protótipo em bancada.", status: "Demonstrado no registro" },
+                  { title: "Sensor de presença", desc: "Próxima etapa de validação isolada do hardware.", status: "Próximo marco" },
+                  { title: "Microfone e áudio", desc: "Integração prevista após a validação dos componentes de percepção.", status: "Planejado" },
+                  { title: "Interação por voz", desc: "Processamento de linguagem e síntese de voz para uma etapa posterior.", status: "Visão futura" },
+                  { title: "Memória e personalidade", desc: "Camadas próprias a serem desenvolvidas depois da base de hardware e comunicação.", status: "Visão futura" },
+                  { title: "Integrações adicionais", desc: "Expansões serão consideradas depois de um protótipo funcional validado.", status: "Futuro" },
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3 md:gap-4">
                     <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#6C3BFF] flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -467,6 +469,7 @@ export default function Home() {
                     <div>
                       <h4 className="font-display text-sm md:text-base font-semibold mb-0.5 md:mb-1">{feature.title}</h4>
                       <p className="text-gray-400 text-xs md:text-sm">{feature.desc}</p>
+                      <span className="inline-flex mt-2 px-2 py-1 rounded-full bg-[#6C3BFF]/15 text-[#B69CFF] text-[10px] md:text-xs font-semibold tracking-wide">{feature.status}</span>
                     </div>
                   </div>
                 ))}
@@ -476,6 +479,7 @@ export default function Home() {
             <div className="relative h-64 sm:h-80 md:h-full min-h-80 md:min-h-96 rounded-lg overflow-hidden">
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/axion-companion-charging-b2NNwtGA9f3GEWq8iVAiiH.webp"
+                loading="lazy"
                 alt="Axion Companion - Carregamento"
                 className="w-full h-full object-cover"
               />
@@ -581,23 +585,23 @@ export default function Home() {
             {[
               {
                 icon: Code,
-                title: "Abordagem Centrada em Engenharia",
-                desc: "Construída sobre décadas de expertise técnica. Cada componente é projetado com precisão e confiabilidade.",
+                title: "Desenvolvimento documentado",
+                desc: "O projeto mostra registros de bancada e separa com clareza o que foi demonstrado, o que está em teste e o que ainda é visão futura.",
               },
               {
                 icon: Shield,
-                title: "Privacidade em Primeiro Lugar",
-                desc: "Dados do usuário protegidos com criptografia de ponta a ponta e processamento local quando possível.",
+                title: "Coleta de dados mínima",
+                desc: "A lista de espera atual solicita apenas nome e e-mail para o envio de atualizações. O tratamento está descrito na Política de Privacidade.",
               },
               {
                 icon: Rocket,
-                title: "Inovação Contínua",
-                desc: "Roadmap claro com atualizações regulares e novas funcionalidades baseadas em feedback dos usuários.",
+                title: "Validação antes de integração",
+                desc: "Cada componente precisa ser testado de forma isolada antes de se tornar parte do sistema. Isso reduz incertezas e preserva o que já funciona.",
               },
               {
                 icon: Heart,
-                title: "Design Centrado no Humano",
-                desc: "Cada decisão de design é feita pensando na experiência e bem-estar do usuário.",
+                title: "Design expressivo",
+                desc: "Os olhos e os estados visuais dão forma à identidade do Axion desde a primeira etapa, conectando hardware e experiência de maneira simples.",
               },
             ].map((item, idx) => (
               <div key={idx} className="group p-6 md:p-8 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg hover:border-[#6C3BFF] transition-all duration-300">
@@ -612,73 +616,109 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Proof of Reality Section */}
-      <section className="relative py-16 md:py-32 lg:py-40 bg-[#111111]">
+      {/* Building in Public Section */}
+      <section id="building" className="relative py-16 md:py-32 lg:py-40 bg-[#111111]">
         <div className="container max-w-6xl px-4 md:px-0">
-          <div className="mb-12 md:mb-20">
+          <div className="mb-12 md:mb-16 max-w-3xl">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-1 h-6 md:h-8 bg-[#6C3BFF]" />
-              <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">REALIDADE</span>
+              <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">CONSTRUÇÃO REAL</span>
             </div>
-            <h2 className="font-display text-3xl md:text-5xl lg:text-6xl leading-tight">
-              Proof of <span className="text-[#6C3BFF]">Reality</span>
+            <h2 className="font-display text-3xl md:text-5xl lg:text-6xl leading-tight mb-4 md:mb-6">
+              Construído <span className="text-[#6C3BFF]">no mundo real</span>.
             </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {/* Team Photo */}
-            <div className="group relative overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/proof-reality-team-6gLDmvftKkDEuEKUJcV3Mk.webp"
-                alt="Equipe Axion Labs"
-                className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                <h3 className="font-display text-lg md:text-xl font-bold">Nossa Equipe</h3>
-                <p className="text-gray-400 text-sm mt-1">Engenheiros e designers apaixonados por inovação</p>
-              </div>
-            </div>
-
-            {/* Workshop Photo */}
-            <div className="group relative overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/proof-reality-workshop-fnoS2d5EafPmpgU9W6kxkD.webp"
-                alt="Laboratório Axion Labs"
-                className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                <h3 className="font-display text-lg md:text-xl font-bold">Laboratório</h3>
-                <p className="text-gray-400 text-sm mt-1">Equipamento de ponta e precisão em engenharia</p>
-              </div>
-            </div>
-
-            {/* Prototype Photo */}
-            <div className="group relative overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663723826567/2FzR4jRCyHDrWV2TuKTUbo/proof-reality-prototype-6CXMJH3pBQy3JxmNhyMmeA.webp"
-                alt="Protótipo Axion Companion"
-                className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                <h3 className="font-display text-lg md:text-xl font-bold">Protótipo</h3>
-                <p className="text-gray-400 text-sm mt-1">Axion Companion em desenvolvimento ativo</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 md:mt-20 p-6 md:p-8 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg">
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed text-center">
-              Somos uma equipe real, com um laboratório real, desenvolvendo um produto real. Cada dia trabalhamos para trazer inovação em robótica e inteligência artificial para sua vida.
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+              O Axion está sendo desenvolvido passo a passo. Abaixo estão registros reais da bancada de desenvolvimento; eles mostram o processo atual, não uma versão final do produto.
             </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
+            <figure className="group overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-all duration-300">
+              <img
+                src="/media/prototipo-em-bancada.jpeg"
+                alt="Registro de bancada do protótipo Axion com ESP32 conectado a um display de olhos expressivos"
+                loading="lazy"
+                className="w-full h-72 md:h-[30rem] object-cover object-center group-hover:scale-105 transition-transform duration-300"
+              />
+              <figcaption className="p-5 md:p-6">
+                <span className="inline-flex px-2 py-1 rounded-full bg-[#6C3BFF]/15 text-[#B69CFF] text-[10px] md:text-xs font-semibold tracking-wide">Registro real de bancada</span>
+                <h3 className="font-display text-lg md:text-xl font-bold mt-3">Display e olhos em desenvolvimento</h3>
+                <p className="text-gray-400 text-sm mt-2 leading-relaxed">O registro mostra o ESP32 conectado ao display enquanto os estados visuais dos olhos são exibidos. Componentes adicionais ainda estão em integração e validação.</p>
+              </figcaption>
+            </figure>
+
+            <div className="rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] overflow-hidden flex flex-col">
+              <video controls playsInline preload="metadata" className="w-full h-72 md:h-[30rem] object-cover bg-black">
+                <source src="/media/processo-construcao.mp4" type="video/mp4" />
+                Seu navegador não suporta vídeo HTML5.
+              </video>
+              <div className="p-5 md:p-6">
+                <span className="inline-flex px-2 py-1 rounded-full bg-[#6C3BFF]/15 text-[#B69CFF] text-[10px] md:text-xs font-semibold tracking-wide">Registro do processo</span>
+                <h3 className="font-display text-lg md:text-xl font-bold mt-3">Acompanhe a evolução do protótipo</h3>
+                <p className="text-gray-400 text-sm mt-2 leading-relaxed">Um registro enviado durante o desenvolvimento. Novas validações serão publicadas conforme cada componente for testado de forma isolada e integrado ao sistema.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 md:mt-12 p-6 md:p-8 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg grid md:grid-cols-3 gap-6">
+            <div>
+              <p className="text-[#B69CFF] text-xs font-semibold tracking-widest">AGORA</p>
+              <p className="text-gray-300 text-sm mt-2">Base de hardware, display e estados visuais em desenvolvimento.</p>
+            </div>
+            <div>
+              <p className="text-[#B69CFF] text-xs font-semibold tracking-widest">PRÓXIMO TESTE</p>
+              <p className="text-gray-300 text-sm mt-2">Validação isolada do sensor de presença antes da integração.</p>
+            </div>
+            <div>
+              <p className="text-[#B69CFF] text-xs font-semibold tracking-widest">DEPOIS</p>
+              <p className="text-gray-300 text-sm mt-2">Microfone, áudio, comunicação e camadas de IA em etapas posteriores.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Creator Section */}
+      <section id="creator" className="relative py-16 md:py-28 lg:py-32 bg-[#0A0A0A] border-y border-[#2A2A2A]">
+        <div className="container max-w-6xl px-4 md:px-0">
+          <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 md:gap-16 items-center">
+            <div className="relative max-w-sm mx-auto lg:mx-0 w-full">
+              <div className="absolute -inset-3 rounded-2xl bg-[#6C3BFF]/20 blur-2xl" aria-hidden="true" />
+              <img
+                src="/media/lucas-bohrer-criador.jpeg"
+                alt="Lucas Bohrer, criador do projeto Axion"
+                loading="lazy"
+                className="relative w-full aspect-[3/4] object-cover rounded-xl border border-[#6C3BFF]/40"
+              />
+            </div>
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-1 h-6 md:h-8 bg-[#6C3BFF]" />
+                <span className="text-[#6C3BFF] text-xs md:text-sm font-semibold tracking-widest">QUEM ESTÁ CONSTRUINDO</span>
+              </div>
+              <h2 className="font-display text-3xl md:text-5xl leading-tight mb-5">
+                Por trás do <span className="text-[#6C3BFF]">Axion</span>.
+              </h2>
+              <p className="text-gray-200 text-base md:text-lg leading-relaxed mb-5">
+                Eu sou Lucas Bohrer, criador do Axion. Estou construindo o projeto de ponta a ponta: do protótipo físico e seus testes de hardware à experiência, identidade e evolução do Companion.
+              </p>
+              <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+                O desenvolvimento é documentado com transparência porque cada avanço precisa ser testado no mundo real antes de se tornar parte do produto.
+              </p>
+              <a
+                href="https://www.instagram.com/lucas_bohrer_/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#6C3BFF] text-[#D8CCFF] hover:bg-[#6C3BFF]/15 transition-colors font-semibold"
+              >
+                Acompanhe no Instagram <span aria-hidden="true">@lucas_bohrer_ ↗</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Waitlist Section */}
-      <section id="vision" className="relative py-16 md:py-32 lg:py-40 bg-[#0A0A0A]">
+      <section id="waitlist" className="relative py-16 md:py-32 lg:py-40 bg-[#0A0A0A]">
         <div className="container max-w-6xl px-4 md:px-0">
           <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -690,7 +730,7 @@ export default function Home() {
               Seja um dos <span className="text-[#6C3BFF]">Primeiros</span>
             </h2>
             <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-              Junte-se à nossa comunidade e receba atualizações exclusivas sobre o desenvolvimento do Axion Companion.
+              Receba atualizações sobre os testes do protótipo, novas evidências de desenvolvimento e futuros convites para acompanhar a jornada do Axion.
             </p>
           </div>
 
@@ -698,9 +738,12 @@ export default function Home() {
             <form onSubmit={handleWaitlistSubmit} className="space-y-4 md:space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Nome</label>
+                  <label htmlFor="waitlist-name" className="block text-sm font-semibold mb-2">Nome</label>
                   <input
+                    id="waitlist-name"
+                    name="name"
                     type="text"
+                    autoComplete="name"
                     placeholder="Seu nome"
                     value={waitlistName}
                     onChange={(e) => setWaitlistName(e.target.value)}
@@ -709,9 +752,12 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Email</label>
+                  <label htmlFor="waitlist-email" className="block text-sm font-semibold mb-2">E-mail</label>
                   <input
+                    id="waitlist-email"
+                    name="email"
                     type="email"
+                    autoComplete="email"
                     placeholder="seu@email.com"
                     value={waitlistEmail}
                     onChange={(e) => setWaitlistEmail(e.target.value)}
@@ -720,31 +766,9 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2">País</label>
-                  <input
-                    type="text"
-                    placeholder="Brasil"
-                    value={waitlistCountry}
-                    onChange={(e) => setWaitlistCountry(e.target.value)}
-                    required
-                    className="w-full px-4 py-3 md:py-4 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg focus:border-[#6C3BFF] focus:outline-none transition-colors text-white placeholder-gray-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-2">WhatsApp (Opcional)</label>
-                  <input
-                    type="tel"
-                    placeholder="+55 (11) 99999-9999"
-                    value={waitlistPhone}
-                    onChange={(e) => setWaitlistPhone(e.target.value)}
-                    className="w-full px-4 py-3 md:py-4 bg-[#1A1A1A] border border-[#2A2A2A] rounded-lg focus:border-[#6C3BFF] focus:outline-none transition-colors text-white placeholder-gray-500"
-                  />
-                </div>
-              </div>
+              <p className="text-gray-400 text-xs leading-relaxed">Usaremos seu nome e e-mail apenas para enviar atualizações sobre o desenvolvimento do Axion. Consulte nossa <a href="/privacidade" className="text-[#B69CFF] underline underline-offset-4 hover:text-white">Política de Privacidade</a>.</p>
               {submitMessage && (
-                <div className="p-4 bg-[#6C3BFF]/20 border border-[#6C3BFF] rounded-lg text-center text-[#6C3BFF]">
+                <div role={submitState === "error" ? "alert" : "status"} aria-live="polite" className={`p-4 rounded-lg text-center ${submitState === "error" ? "bg-red-500/10 border border-red-400/60 text-red-200" : "bg-[#6C3BFF]/20 border border-[#6C3BFF] text-[#D8CCFF]"}`}>
                   {submitMessage}
                 </div>
               )}

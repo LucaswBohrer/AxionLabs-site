@@ -1,12 +1,14 @@
 import { ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 
+const LAST_UPDATED = "14 de agosto de 2026";
+const CONTACT_EMAIL = "axion.labs.technologies@gmail.com";
+
 export default function Terms() {
   const [, navigate] = useLocation();
 
   return (
     <div className="w-full bg-[#111111] text-white font-body min-h-screen">
-      {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#111111]/95 backdrop-blur-md border-b border-[#2A2A2A]">
         <div className="container flex items-center justify-between h-20">
           <button
@@ -21,86 +23,81 @@ export default function Terms() {
         </div>
       </header>
 
-      {/* Content */}
       <main className="pt-32 pb-20">
         <div className="container max-w-4xl">
-          <h1 className="font-display text-5xl md:text-6xl mb-12">Termos de Serviço</h1>
+          <h1 className="font-display text-4xl md:text-6xl mb-6">Termos de Uso</h1>
+          <p className="text-gray-400 mb-12">Rascunho operacional para o site Axion Labs. Revisão jurídica recomendada antes de uso comercial em escala.</p>
 
           <div className="space-y-12 text-gray-300 leading-relaxed">
             <section>
-              <h2 className="font-display text-3xl mb-6 text-white">1. Aceitação dos Termos</h2>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">1. Sobre este site</h2>
               <p>
-                Ao acessar e usar o site da Axion Labs, você aceita estar vinculado por estes Termos de Serviço. Se você não concordar com qualquer parte destes termos, não use este site.
+                Este site apresenta o projeto Axion e permite que pessoas interessadas se inscrevam para receber atualizações sobre o desenvolvimento do Axion Companion. Ao acessar ou usar o site, você concorda com estes termos e com a Política de Privacidade publicada nesta plataforma.
               </p>
             </section>
 
             <section>
-              <h2 className="font-display text-3xl mb-6 text-white">2. Uso Licenciado</h2>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">2. Projeto em desenvolvimento</h2>
               <p>
-                É concedida a você uma licença limitada, não exclusiva e não transferível para visualizar e usar este site para fins pessoais e não comerciais. Você não pode:
+                O Axion Companion é um protótipo em desenvolvimento. Textos, imagens conceituais, renders, vídeos, especificações, cronogramas e capacidades exibidos no site podem mudar à medida que os componentes forem testados, integrados ou descartados. A apresentação de uma funcionalidade futura não constitui garantia de lançamento, disponibilidade, prazo, preço ou desempenho final.
               </p>
-              <ul className="list-disc list-inside mt-4 space-y-2 ml-4">
-                <li>Modificar ou copiar os materiais</li>
-                <li>Usar os materiais para qualquer finalidade comercial ou para qualquer finalidade pública</li>
-                <li>Tentar descompilar ou fazer engenharia reversa de qualquer software contido no site</li>
-                <li>Remover qualquer aviso de direitos autorais ou propriedade dos materiais</li>
-                <li>Transferir os materiais para outra pessoa ou "espelhar" os materiais em qualquer outro servidor</li>
+            </section>
+
+            <section>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">3. Registros e conteúdo</h2>
+              <p>
+                O site pode reunir registros reais de desenvolvimento e imagens conceituais. Os registros documentam o estágio mostrado na data da publicação; eles não devem ser interpretados como demonstração de uma versão final, certificada ou comercialmente disponível do produto.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">4. Lista de espera</h2>
+              <p>
+                A inscrição na lista de espera expressa interesse em receber atualizações. Ela não cria reserva, compra, contrato de fornecimento, direito de prioridade, promessa de convite ou compromisso de venda. Você pode solicitar a remoção do seu cadastro pelos canais indicados na Política de Privacidade.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">5. Uso permitido</h2>
+              <p className="mb-4">Você pode navegar e compartilhar links públicos do site para fins pessoais e não comerciais. Não é permitido:</p>
+              <ul className="list-disc list-inside space-y-2 ml-4">
+                <li>interferir no funcionamento, segurança ou disponibilidade do site;</li>
+                <li>usar formulários ou canais de contato para spam, fraude ou atividade ilícita;</li>
+                <li>copiar, republicar ou explorar comercialmente conteúdos do site sem autorização;</li>
+                <li>apresentar-se como associado, representante ou parceiro da Axion Labs sem autorização.</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="font-display text-3xl mb-6 text-white">3. Isenção de Responsabilidade</h2>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">6. Propriedade intelectual</h2>
               <p>
-                Os materiais no site da Axion Labs são fornecidos "como estão". A Axion Labs não oferece garantias, expressas ou implícitas, e se isenta de todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos.
+                A identidade Axion, os textos, logotipos, imagens, interfaces, vídeos e demais conteúdos presentes neste site pertencem à Axion Labs ou são usados com autorização de seus titulares. Nenhum direito de uso além da navegação pessoal é concedido por estes termos.
               </p>
             </section>
 
             <section>
-              <h2 className="font-display text-3xl mb-6 text-white">4. Limitações de Responsabilidade</h2>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">7. Links externos</h2>
               <p>
-                Em nenhum caso a Axion Labs ou seus fornecedores serão responsáveis por danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção de negócios) decorrentes do uso ou da incapacidade de usar os materiais no site da Axion Labs.
+                O site pode direcionar você a plataformas de terceiros, como Instagram, WhatsApp e fornecedores de formulário ou e-mail. Esses serviços possuem regras e políticas próprias; a Axion Labs não controla seu conteúdo ou tratamento de dados fora deste site.
               </p>
             </section>
 
             <section>
-              <h2 className="font-display text-3xl mb-6 text-white">5. Precisão dos Materiais</h2>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">8. Atualizações</h2>
               <p>
-                Os materiais que aparecem no site da Axion Labs podem incluir erros técnicos, tipográficos ou fotográficos. A Axion Labs não garante que qualquer material em seu site seja preciso, completo ou atual. A Axion Labs pode fazer alterações nos materiais contidos em seu site a qualquer momento sem aviso prévio.
+                Estes termos poderão ser atualizados para refletir mudanças no projeto, no site ou em requisitos aplicáveis. A versão vigente será disponibilizada nesta página com sua respectiva data de atualização.
               </p>
             </section>
 
             <section>
-              <h2 className="font-display text-3xl mb-6 text-white">6. Links</h2>
+              <h2 className="font-display text-2xl md:text-3xl mb-5 text-white">9. Contato</h2>
               <p>
-                A Axion Labs não analisou todos os sites vinculados ao seu site e não é responsável pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso pelo site da Axion Labs do site. O uso de qualquer site vinculado é por conta e risco do usuário.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="font-display text-3xl mb-6 text-white">7. Modificações</h2>
-              <p>
-                A Axion Labs pode revisar estes Termos de Serviço para seu site a qualquer momento sem aviso prévio. Ao usar este site, você está concordando em estar vinculado pela versão atual destes Termos de Serviço.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="font-display text-3xl mb-6 text-white">8. Lei Aplicável</h2>
-              <p>
-                Estes Termos de Serviço e qualquer disputa relacionada são regidos pelas leis do Brasil, e você irrevogavelmente concorda em se submeter à jurisdição exclusiva dos tribunais localizados no Brasil.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="font-display text-3xl mb-6 text-white">9. Contato</h2>
-              <p>
-                Se você tiver dúvidas sobre estes Termos de Serviço, entre em contato conosco em contact@axionlabs.com.
+                Para dúvidas sobre estes termos ou sobre o projeto, escreva para <a className="text-[#B69CFF] hover:text-white underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
               </p>
             </section>
 
             <div className="mt-16 pt-8 border-t border-[#2A2A2A]">
-              <p className="text-sm text-gray-500">
-                Última atualização: {new Date().toLocaleDateString("pt-BR")}
-              </p>
+              <p className="text-sm text-gray-500">Última atualização: {LAST_UPDATED}</p>
             </div>
           </div>
         </div>
