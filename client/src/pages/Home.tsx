@@ -69,35 +69,47 @@ export default function Home() {
         throw new Error("A origem de registro da lista de espera não está configurada.");
       }
 
+      // Mantém o formato original da planilha, mesmo que país e WhatsApp não sejam mais coletados no site.
+      const registration = {
+        nome: waitlistName.trim(),
+        email: waitlistEmail.trim(),
+        pais: "",
+        whatsapp: "",
+      };
+
       const sheetsResponse = await fetch(googleSheetsUrl, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          nome: waitlistName.trim(),
-          email: waitlistEmail.trim(),
-        }),
+        body: JSON.stringify(registration),
       });
 
       if (!sheetsResponse.ok) {
         throw new Error(`Não foi possível registrar a inscrição (${sheetsResponse.status}).`);
       }
 
-      const emailResponse = await emailjs.send(
-        "service_i2qzyif",
-        "template_7zo6cjr",
-        {
-          user_name: waitlistName.trim(),
-          user_email: waitlistEmail.trim(),
-          to_email: waitlistEmail.trim(),
-        }
-      );
-
-      if (emailResponse.status < 200 || emailResponse.status >= 300) {
-        throw new Error("Não foi possível confirmar o e-mail de boas-vindas.");
+      let welcomeEmailSent = true;
+      try {
+        const emailResponse = await emailjs.send(
+          "service_i2qzyif",
+          "template_7zo6cjr",
+          {
+            user_name: registration.nome,
+            user_email: registration.email,
+            to_email: registration.email,
+          }
+        );
+        welcomeEmailSent = emailResponse.status >= 200 && emailResponse.status < 300;
+      } catch (emailError) {
+        welcomeEmailSent = false;
+        console.error("Inscrição registrada, mas o e-mail de boas-vindas falhou:", emailError);
       }
 
       setSubmitState("success");
-      setSubmitMessage("Inscrição registrada. Enviaremos atualizações do protótipo para o seu e-mail.");
+      setSubmitMessage(
+        welcomeEmailSent
+          ? "Inscrição registrada. Enviaremos atualizações do protótipo para o seu e-mail."
+          : "Inscrição registrada. O e-mail de boas-vindas pode demorar, mas seus dados já foram adicionados à lista."
+      );
       setWaitlistName("");
       setWaitlistEmail("");
     } catch (error) {
@@ -657,6 +669,49 @@ export default function Home() {
                 <h3 className="font-display text-lg md:text-xl font-bold mt-3">Acompanhe a evolução do protótipo</h3>
                 <p className="text-gray-400 text-sm mt-2 leading-relaxed">Um registro enviado durante o desenvolvimento. Novas validações serão publicadas conforme cada componente for testado de forma isolada e integrado ao sistema.</p>
               </div>
+            </div>
+          </div>
+
+          <div className="mt-10 md:mt-16">
+            <div className="max-w-3xl mb-6 md:mb-8">
+              <span className="text-[#B69CFF] text-xs md:text-sm font-semibold tracking-widest">ESTUDOS DE CARCAÇA</span>
+              <h3 className="font-display text-2xl md:text-3xl font-bold mt-3">Da ideia à estrutura física</h3>
+              <p className="text-gray-400 text-sm md:text-base mt-3 leading-relaxed">Estes são desenhos e visualizações iniciais da carcaça do Axion. Eles orientam a próxima etapa de prototipagem, mas ainda não representam uma peça final fabricada ou validada.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <figure className="overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-colors duration-300">
+                <div className="aspect-[4/3] bg-[#F8F6D9]">
+                  <img src="/media/axion-front-panel-rev-g.png" alt="Estudo inicial do painel frontal da carcaça do Axion, com recorte para display e pontos de fixação" loading="lazy" className="w-full h-full object-contain" />
+                </div>
+                <figcaption className="p-5">
+                  <span className="inline-flex px-2 py-1 rounded-full bg-[#6C3BFF]/15 text-[#B69CFF] text-[10px] font-semibold tracking-wide">Estudo de design · Rev. G</span>
+                  <h4 className="font-display text-lg font-bold mt-3">Painel frontal</h4>
+                  <p className="text-gray-400 text-sm mt-2 leading-relaxed">Estudo com recorte de display e pontos de fixação. Encaixes, dimensões e materiais ainda precisam de validação física.</p>
+                </figcaption>
+              </figure>
+
+              <figure className="overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-colors duration-300">
+                <div className="aspect-[4/3] bg-[#F8F6D9]">
+                  <img src="/media/axion-assembly-rev-g.png" alt="Visualização inicial da montagem da carcaça cúbica do Axion" loading="lazy" className="w-full h-full object-contain" />
+                </div>
+                <figcaption className="p-5">
+                  <span className="inline-flex px-2 py-1 rounded-full bg-[#6C3BFF]/15 text-[#B69CFF] text-[10px] font-semibold tracking-wide">Estudo de design · Rev. G</span>
+                  <h4 className="font-display text-lg font-bold mt-3">Montagem da carcaça</h4>
+                  <p className="text-gray-400 text-sm mt-2 leading-relaxed">Visualização do volume externo e da tampa superior como referência de forma. Não é um produto fabricado.</p>
+                </figcaption>
+              </figure>
+
+              <figure className="overflow-hidden rounded-lg bg-[#0A0A0A] border border-[#2A2A2A] hover:border-[#6C3BFF] transition-colors duration-300">
+                <div className="aspect-[4/3] bg-[#F8F6D9]">
+                  <img src="/media/axion-enclosure-single-cube-rev-f.svg" alt="Desenho técnico inicial da enclosure do Axion com vistas de referência" loading="lazy" className="w-full h-full object-contain" />
+                </div>
+                <figcaption className="p-5">
+                  <span className="inline-flex px-2 py-1 rounded-full bg-[#6C3BFF]/15 text-[#B69CFF] text-[10px] font-semibold tracking-wide">Referência técnica · Rev. F</span>
+                  <h4 className="font-display text-lg font-bold mt-3">Desenho da enclosure</h4>
+                  <p className="text-gray-400 text-sm mt-2 leading-relaxed">Documento de referência com vistas de projeto da enclosure. Os detalhes mecânicos permanecem em evolução.</p>
+                </figcaption>
+              </figure>
             </div>
           </div>
 
